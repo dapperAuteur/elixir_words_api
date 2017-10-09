@@ -13,11 +13,19 @@ use Mix.Config
 # which you typically run after static files are built.
 config :elixir_words_api, ElixirWordsApi.Endpoint,
   http: [port: {:system, "PORT"}],
-  url: [host: "example.com", port: 80],
-  cache_static_manifest: "priv/static/manifest.json"
+  url: [scheme: "https" host: "still-falls-91786.herokuapp.com/", port: 443],
+  cache_static_manifest: "priv/static/manifest.json",
+  secret_key_base: Map.fetch!(System.get_env(), "SECRET_KEY_BASE")
 
 # Do not print debug messages in production
 config :logger, level: :info
+
+#Configure your database
+config :elixir_words_api, ElixirWordsApi.Repo,
+  adapter: Ecto.Adapters.Postgres,
+  url: System.get_env("DATABASE_URL"),
+  pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
+  ssl: true
 
 # ## SSL Support
 #
@@ -38,8 +46,8 @@ config :logger, level: :info
 # We also recommend setting `force_ssl`, ensuring no data is
 # ever sent via http, always redirecting to https:
 #
-#     config :elixir_words_api, ElixirWordsApi.Endpoint,
-#       force_ssl: [hsts: true]
+    config :elixir_words_api, ElixirWordsApi.Endpoint,
+      force_ssl: [rewrite_on: [:x_forwarded_proto]],#[hsts: true]
 #
 # Check `Plug.SSL` for all available options in `force_ssl`.
 
@@ -58,4 +66,4 @@ config :logger, level: :info
 
 # Finally import the config/prod.secret.exs
 # which should be versioned separately.
-import_config "prod.secret.exs"
+# import_config "prod.secret.exs"

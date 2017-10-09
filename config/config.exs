@@ -12,7 +12,8 @@ config :elixir_words_api,
 # Configures the endpoint
 config :elixir_words_api, ElixirWordsApi.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "4RiQ8B1wVOi7TyL8vzIuMBciiSI49u82TjAonV9Y6GcODaKjtKrVYXNrd7v5vfjJ",
+  # secret_key_base: "4RiQ8B1wVOi7TyL8vzIuMBciiSI49u82TjAonV9Y6GcODaKjtKrVYXNrd7v5vfjJ",
+  # secret_key_base: Map.fetch!(System.get_env(), "SECRET_KEY_BASE"),
   render_errors: [view: ElixirWordsApi.ErrorView, accepts: ~w(html json)],
   pubsub: [name: ElixirWordsApi.PubSub,
            adapter: Phoenix.PubSub.PG2]
