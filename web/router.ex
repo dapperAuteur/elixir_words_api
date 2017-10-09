@@ -13,14 +13,16 @@ defmodule ElixirWordsApi.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", ElixirWordsApi do
-    pipe_through :browser # Use the default browser stack
-
-    get "/", PageController, :index
-  end
+  # scope "/", ElixirWordsApi do
+  #   pipe_through :browser # Use the default browser stack
+  #
+  #   get "/", PageController, :index
+  # end
 
   # Other scopes may use custom stacks.
-  # scope "/api", ElixirWordsApi do
-  #   pipe_through :api
-  # end
+  scope "/api/0001", ElixirWordsApi do
+    pipe_through :api
+
+    resources "/words", WordController
+  end
 end
