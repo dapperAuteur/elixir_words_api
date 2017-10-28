@@ -34,7 +34,7 @@ environment :dev do
 end
 
 environment :prod do
-  set include_erts: true
+  set include_erts: false
   set include_src: false
   set cookie: :"is5b|s|3YMC5x:XDX.5vr3wG!{;H5$rjHh~v9IU!670nJu,{8$D]dtOK}|g@e<TX"
 end
@@ -50,4 +50,3 @@ release :elixir_words_api do
     :runtime_tools
   ]
 end
-
