@@ -1,10 +1,15 @@
 defmodule ElixirWordsApi.WordController do
   use ElixirWordsApi.Web, :controller
 
-  def index(conn, _params) do
-    words = Repo.all(ElixirWordsApi.Word)
+  alias ElixirWordsApi.Word
 
-    json conn_with_status(conn, words), words
+  def index(conn, params) do
+    words = Repo.all(ElixirWordsApi.Word)
+    {words, kerosene} =
+    Word
+    |> Repo.paginate(params)
+
+    json conn_with_status(conn, words: words, kerosene: kerosene), words
   end
 
   def show(conn, %{"id" => id}) do
